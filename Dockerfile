@@ -14,7 +14,10 @@ RUN \
   echo "**** install node repo ****" && \
   apt-get update && \
   apt-get install -y \
-    gnupg && \
+    gnupg upx cron && \
+  echo "**** setup go clean job ****" && \
+  echo "3 3 * * * /opt/go/bin/go clean -cache" >> /var/spool/cron/crontabs/abc && \
+  echo "3 2 * * * /bin/rm -rf /config/data/logs/*" >> /var/spool/cron/crontabs/abc && \
   curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
   echo 'deb https://deb.nodesource.com/node_14.x bionic main' \
     > /etc/apt/sources.list.d/nodesource.list && \
@@ -38,6 +41,9 @@ RUN \
     nodejs \
     sudo \
     yarn && \
+  echo "**** install apidoc ****" && \
+  npm install apidoc -g && \
+  sed -i "s/fonts.googleapis.com/wgq.shwlst.com:40002/g" /usr/lib/node_modules/apidoc/template-single/index.html && \
   echo "**** install code-server ****" && \
   if [ -z ${CODE_RELEASE+x} ]; then \
     CODE_RELEASE=$(curl -sX GET https://registry.yarnpkg.com/code-server \
@@ -59,7 +65,6 @@ RUN \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
-
 # add local files
 COPY /root /
 
