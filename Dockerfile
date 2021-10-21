@@ -10,6 +10,7 @@ LABEL maintainer="aptalca"
 # environment settings
 ENV HOME="/config"
 
+# cancel:   sed -i "s/fonts.googleapis.com/wgq.shwlst.com:40002/g" /usr/lib/node_modules/apidoc/template-single/index.html && \
 RUN \
   echo "**** install node repo ****" && \
   apt-get update && \
@@ -40,10 +41,10 @@ RUN \
     net-tools \
     nodejs \
     sudo \
+    yapf \
     yarn && \
   echo "**** install apidoc ****" && \
   npm install apidoc -g && \
-  sed -i "s/fonts.googleapis.com/wgq.shwlst.com:40002/g" /usr/lib/node_modules/apidoc/template-single/index.html && \
   echo "**** install code-server ****" && \
   if [ -z ${CODE_RELEASE+x} ]; then \
     CODE_RELEASE=$(curl -sX GET https://registry.yarnpkg.com/code-server \
