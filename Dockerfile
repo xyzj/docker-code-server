@@ -15,7 +15,7 @@ RUN \
   echo "**** install node repo ****" && \
   apt-get update && \
   apt-get install -y \
-    gnupg upx cron python-pip gogoprotobuf && \
+    gnupg upx cron python3-pip gogoprotobuf && \
   echo "**** setup go clean job ****" && \
   echo "3 3 * * * /opt/go/bin/go clean -cache" >> /var/spool/cron/crontabs/abc && \
   echo "3 2 * * * /bin/rm -rf /config/data/logs/*" >> /var/spool/cron/crontabs/abc && \
@@ -32,7 +32,8 @@ RUN \
     libx11-dev \
     libxkbfile-dev \
     libsecret-1-dev \
-    pkg-config && \
+    pkg-config \
+    python3 && \
   echo "**** install runtime dependencies ****" && \
   apt-get install -y \
     git \
@@ -42,7 +43,6 @@ RUN \
     nodejs \
     sudo \
     clang-format \
-    yapf \
     yarn && \
   echo "**** install apidoc ****" && \
   npm install apidoc -g && \
