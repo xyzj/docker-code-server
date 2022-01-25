@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
 
 # set version label
 ARG BUILD_DATE
@@ -20,7 +20,7 @@ RUN \
   echo "3 3 * * * /opt/go/bin/go clean -cache" >> /var/spool/cron/crontabs/abc && \
   echo "3 2 * * * /bin/rm -rf /config/data/logs/*" >> /var/spool/cron/crontabs/abc && \
   curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-  echo 'deb https://deb.nodesource.com/node_14.x bionic main' \
+  echo 'deb https://deb.nodesource.com/node_14.x focal main' \
     > /etc/apt/sources.list.d/nodesource.list && \
   curl -s https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
   echo 'deb https://dl.yarnpkg.com/debian/ stable main' \
@@ -41,6 +41,7 @@ RUN \
     net-tools \
     nodejs \
     sudo \
+    clang-format \
     yapf \
     yarn && \
   echo "**** install apidoc ****" && \
